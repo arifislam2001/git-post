@@ -7,11 +7,11 @@ export default function CreatePost() {
   const router = useRouter();
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
-  const [userId, setUserId] = useState("5"); // Defaulting to 5 as per your API example
+  const [userId, setUserId] = useState("5"); // Default user id 5 thakbe
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState({ type: "", text: "" });
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setMessage({ type: "", text: "" });
@@ -33,17 +33,21 @@ export default function CreatePost() {
         throw new Error(data.message || "Something went wrong");
       }
 
-      // Success
+      // Success Message
       setMessage({
         type: "success",
         text: "Post created successfully! (Simulated by DummyJSON)",
       });
       console.log("DummyJSON Response:", data);
 
-      // Optional: Clear form or redirect
+      // Form clear kora
       setTitle("");
       setBody("");
-    } catch (error) {
+
+      // Direct Home page-e niye jabe click korar por
+      router.push("/"); 
+      
+    } catch (error: any) {
       setMessage({ type: "error", text: error.message });
     } finally {
       setIsLoading(false);
@@ -51,14 +55,15 @@ export default function CreatePost() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-white p-6 text-slate-100">
-      <div className="w-full max-w-2xl rounded-2xl border border-slate-800 bg-white p-6 shadow-2xl backdrop-blur-md md:p-8">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-slate-50 p-6 text-slate-800">
+      <div className="w-full max-w-2xl rounded-2xl border border-slate-200 bg-white p-6 shadow-xl md:p-8">
+        
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent md:text-3xl">
+          <h1 className="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-600 to-cyan-500 bg-clip-text text-transparent md:text-3xl">
             Create a New Post
           </h1>
-          <p className="mt-2 text-sm text-slate-400">
+          <p className="mt-2 text-sm text-slate-500">
             Share your thoughts with the community.
           </p>
         </div>
@@ -68,8 +73,8 @@ export default function CreatePost() {
           <div
             className={`mb-6 rounded-xl p-4 text-sm font-medium border ${
               message.type === "success"
-                ? "bg-emerald-950/30 text-emerald-400 border-emerald-900/50"
-                : "bg-red-950/30 text-red-400 border-red-900/50"
+                ? "bg-emerald-50 text-emerald-700 border-emerald-200"
+                : "bg-red-50 text-red-700 border-red-200"
             }`}
           >
             {message.text}
@@ -78,11 +83,12 @@ export default function CreatePost() {
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-6">
+          
           {/* User ID Field */}
           <div>
             <label
               htmlFor="userId"
-              className="block text-sm font-medium text-slate-300"
+              className="block text-sm font-semibold text-slate-700"
             >
               User ID
             </label>
@@ -92,7 +98,7 @@ export default function CreatePost() {
               required
               value={userId}
               onChange={(e) => setUserId(e.target.value)}
-              className="mt-2 block w-full rounded-xl border border-slate-800 bg-slate-950/50 px-4 py-2.5 text-slate-200 placeholder-slate-600 shadow-inner transition-all duration-200 focus:border-indigo-500 focus:bg-slate-950 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+              className="mt-2 block w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-slate-900 placeholder-slate-400 shadow-sm transition-all duration-200 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
               placeholder="e.g., 5"
             />
           </div>
@@ -101,7 +107,7 @@ export default function CreatePost() {
           <div>
             <label
               htmlFor="title"
-              className="block text-sm font-medium text-slate-300"
+              className="block text-sm font-semibold text-slate-700"
             >
               Post Title
             </label>
@@ -111,7 +117,7 @@ export default function CreatePost() {
               required
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="mt-2 block w-full rounded-xl border border-slate-800 bg-slate-950/50 px-4 py-2.5 text-slate-200 placeholder-slate-600 shadow-inner transition-all duration-200 focus:border-indigo-500 focus:bg-slate-950 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+              className="mt-2 block w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-slate-900 placeholder-slate-400 shadow-sm transition-all duration-200 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
               placeholder="I am in love with someone..."
             />
           </div>
@@ -120,7 +126,7 @@ export default function CreatePost() {
           <div>
             <label
               htmlFor="body"
-              className="block text-sm font-medium text-slate-300"
+              className="block text-sm font-semibold text-slate-700"
             >
               Content
             </label>
@@ -130,17 +136,17 @@ export default function CreatePost() {
               rows={5}
               value={body}
               onChange={(e) => setBody(e.target.value)}
-              className="mt-2 block w-full rounded-xl border border-slate-800 bg-slate-950/50 px-4 py-2.5 text-slate-200 placeholder-slate-600 shadow-inner transition-all duration-200 focus:border-indigo-500 focus:bg-slate-950 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 resize-none"
+              className="mt-2 block w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-slate-900 placeholder-slate-400 shadow-sm transition-all duration-200 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 resize-none"
               placeholder="Write your story here..."
             />
           </div>
 
           {/* Action Buttons */}
-          <div className="flex items-center justify-end space-x-4 pt-4 border-t border-slate-800/60">
+          <div className="flex items-center justify-end space-x-4 pt-4 border-t border-slate-100">
             <button
               type="button"
               onClick={() => router.back()}
-              className="rounded-xl border border-slate-800 bg-slate-950/50 px-5 py-2.5 text-sm font-semibold text-slate-400 transition-colors hover:bg-slate-900 hover:text-slate-200 focus:outline-none"
+              className="rounded-xl border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-600 transition-colors hover:bg-slate-50 focus:outline-none"
             >
               Cancel
             </button>

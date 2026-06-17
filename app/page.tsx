@@ -27,6 +27,7 @@ const query = await searchParams;
       </div>
       
       </div>
+  
     </section>
   );
 }
