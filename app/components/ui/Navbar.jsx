@@ -20,6 +20,12 @@ export default function Navbar() {
       {/* Navigation Links */}
       <div className="flex items-center gap-6">
         <Link
+          href="/CreatePost"
+          className="hover:text-cyan-400 transition duration-300"
+        >
+          Create Post
+        </Link>
+        <Link
           href="/"
           className="hover:text-cyan-400 transition duration-300"
         >
